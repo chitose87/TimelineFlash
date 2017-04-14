@@ -1,0 +1,17 @@
+{
+  "name": "TimelineFlash",
+  "homepage": "https://github.com/chitose87/TimelineFlash",
+  "authors": [
+    "Chitose Macoto <makoto.chitose@nide.jp>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
