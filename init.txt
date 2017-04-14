@@ -1,0 +1,6 @@
+bower init
+bower install pixi.js
+
+npm init
+npm install gsap
+npm install --save @types/gapi
