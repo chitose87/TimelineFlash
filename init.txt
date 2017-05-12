@@ -2,5 +2,5 @@ bower init
 bower install pixi.js
 
 npm init
-npm install gsap
-npm install --save @types/gapi
+npm install --save @types/gsap
+npm install --save @types/jquery

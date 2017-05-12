@@ -19,6 +19,10 @@
   "dependencies": {
     "@types/gapi": "0.0.31",
     "@types/gsap": "^1.19.1",
-    "@types/pixi.js": "^4.4.2"
+    "@types/jquery": "^2.0.41",
+    "@types/pixi.js": "^4.4.2",
+    "@types/vue": "^2.0.0",
+    "vue": "^2.2.6",
+    "vue-cli": "^2.8.1"
   }
 }

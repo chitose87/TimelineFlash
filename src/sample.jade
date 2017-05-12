@@ -12,11 +12,41 @@ html
 			$(function () {
 				var timelineFlash = new TimelineFlash();
 
+
 				var motion1 = $("#motion1");
 				var tl;
-				tl = new TimelineMax({paused: true})
-						.to(motion1, 5, {x: "100%"});
-				timelineFlash.add(tl);
+				tl = new TimelineMax({
+					paused: true, onUpdate: function () {
+						var v = 1;
+						var n = motion1;
+					}
+				})
+						.set(motion1, {x: "100%"})
+						.to(motion1, 5, {x: "50%"})
+						.to(motion1, 5, {x: "100%"})
+						.from(motion1, 5, {x: "0%"})
+						.fromTo(motion1, 5, {x: "100%"}, {x: "0%"})
+				;
+				timelineFlash.add(tl, {
+					label: "test1"
+					, targets: {
+						"motion1": motion1
+					}
+				});
+
+				var motion2 = $("#motion2");
+				var tl2;
+				tl2 = new TimelineMax({
+					paused: true, onUpdate: function () {
+					}
+				})
+						.to(motion2, 5, {x: "100%"})
+						.to(motion2, 5, {x: "50%"}, "+=1")
+						.to(motion2, 5, {x: "100%"})
+						.to(motion2, 5, {x: "0%"})
+				;
+
+				timelineFlash.add(tl2);
 
 				motion1.on("click", function () {
 					tl.play(0);
@@ -41,3 +71,4 @@ html
 	body
 		#content
 			#motion1.box
+			#motion2.box

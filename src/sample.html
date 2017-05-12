@@ -1,11 +1,41 @@
 <!DOCTYPE html><html><head><title>TimelineFlash sample</title><meta charset="UTF-8"><!--link(rel="stylesheet" type="text/css" href=".css" media="all")--><!--script(type="text/javascript" src='../node_modules/gsap/TweenMax.js')--><script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script><script src="./script/_TimelineFlash.js"></script><script>$(function () {
 	var timelineFlash = new TimelineFlash();
 
+
 	var motion1 = $("#motion1");
 	var tl;
-	tl = new TimelineMax({paused: true})
-			.to(motion1, 5, {x: "100%"});
-	timelineFlash.add(tl);
+	tl = new TimelineMax({
+		paused: true, onUpdate: function () {
+			var v = 1;
+			var n = motion1;
+		}
+	})
+			.set(motion1, {x: "100%"})
+			.to(motion1, 5, {x: "50%"})
+			.to(motion1, 5, {x: "100%"})
+			.from(motion1, 5, {x: "0%"})
+			.fromTo(motion1, 5, {x: "100%"}, {x: "0%"})
+	;
+	timelineFlash.add(tl, {
+		label: "test1"
+		, targets: {
+			"motion1": motion1
+		}
+	});
+
+	var motion2 = $("#motion2");
+	var tl2;
+	tl2 = new TimelineMax({
+		paused: true, onUpdate: function () {
+		}
+	})
+			.to(motion2, 5, {x: "100%"})
+			.to(motion2, 5, {x: "50%"}, "+=1")
+			.to(motion2, 5, {x: "100%"})
+			.to(motion2, 5, {x: "0%"})
+	;
+
+	timelineFlash.add(tl2);
 
 	motion1.on("click", function () {
 		tl.play(0);
@@ -24,4 +54,4 @@
 
 #motion1 {
 
-}</style></head><body><div id="content"><div id="motion1" class="box"></div></div></body></html>
+}</style></head><body><div id="content"><div id="motion1" class="box"></div><div id="motion2" class="box"></div></div></body></html>
