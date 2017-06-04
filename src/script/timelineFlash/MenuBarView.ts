@@ -3,10 +3,9 @@ namespace timelineFlash {
 	export class MenuBarView extends View {
 		private static TEMPLATE:string = '' +
 			'<div class="left">' +
-			'	<a class="exportBtn Btn">Export</a>' +
-			// '	<a class="Btn">remove</a>' +
+			'	<button class="exportBtn">Export</button>' +
 			'</div>';
-
+		
 		private static style = (function () {
 			Style.add({
 				".MenuBarView": {

@@ -59,12 +59,13 @@ namespace timelineFlash {
 		private static style = (function () {
 			Style.add({
 				".PropView": {
-					"label": {
+					paddingLeft: "0.5em"
+					, label: {
 						display: "flex"
 						, justifyContent: "space-between"
-						, "input": {
-							color: Style.color_reverse
-						}
+						// , "input": {
+						// 	color: Style.color_reverse
+						// }
 					}
 					, ul: {
 						paddingLeft: "1rem"
@@ -72,7 +73,6 @@ namespace timelineFlash {
 							content: "attr(data-before)"
 							, display: "block"
 							, marginLeft: "-1rem"
-							, color: "#fff"
 						}
 					}
 				}

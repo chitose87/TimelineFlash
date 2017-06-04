@@ -1,21 +1,21 @@
 /// <reference path="../libs.d.ts" />
 namespace timelineFlash {
-	import Timeline = gsap.Timeline;
 	export class Panel extends View {
 		static instance:Panel;
 		private static style = (function () {
+			console.log("Panel style")
 			Style.add({
 				".Panel": {
-					width: "100%"
-					, height: "100%"
+					width            : "100%"
+					, height         : "100%"
 					, backgroundColor: Style.color_base
-					, ".MenuBarView": {
-						height: "22px"
+					, ".MenuBarView" : {
+						height : "22px"
 						, width: "100%"
 					}
-					, ".box": {
-						display: "flex"
-						, ".PropertyView": {
+					, ".box"         : {
+						display           : "flex"
+						, ".PropertyView" : {
 							minWidth: "300px"
 							// , height: "100%"
 						}
@@ -47,15 +47,18 @@ namespace timelineFlash {
 				'	</div>' +
 				'</div>'));
 			//dev
-			console = window.opener.console;
+			try {
+				console = window.opener.console
+			} catch (e) {
+			}
 
 			this.uid = $("body").data("id");
 			$("body").append(this.jq);
 			console.log("Panel");
 			Panel.instance = this;
 
-			this.menuBarView = new MenuBarView(this.jq.find(".MenuBarView"));
-			this.propertyView = new PropertyView(this.jq.find(".PropertyView"));
+			this.menuBarView   = new MenuBarView(this.jq.find(".MenuBarView"));
+			this.propertyView  = new PropertyView(this.jq.find(".PropertyView"));
 			this.timelinesView = new View(this.jq.find(".timelinesView"));
 			//
 
@@ -76,6 +79,7 @@ namespace timelineFlash {
 		}
 
 		public resize() {
+
 		}
 
 		private update() {
@@ -91,7 +95,7 @@ namespace timelineFlash {
 			window.requestAnimationFrame(()=>this.update());
 		}
 
-		public add(timeline:Timeline | any) {
+		public add(timeline:gsap.TimelineMax | any) {
 			console.log("Panel", timeline);
 			var timelineView:TimelineView = new TimelineView(timeline);
 
@@ -99,6 +103,3 @@ namespace timelineFlash {
 		}
 	}
 }
-$(()=> {
-	new timelineFlash.Panel();
-});

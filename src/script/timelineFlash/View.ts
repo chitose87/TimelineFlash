@@ -1,4 +1,4 @@
-/// <reference path="../libs.d.ts" />
+//// <reference path="../libs.d.ts" />
 
 namespace timelineFlash {
 	export class View {

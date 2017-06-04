@@ -1,7 +1,7 @@
 /// <reference path="../libs.d.ts" />
 namespace timelineFlash {
 	export class TimelineView extends View {
-		static NAME:string = "TimelineView";
+		static NAME:string             = "TimelineView";
 		private static TEMPLATE:string = '' +
 			'<div class="TimelineView">' +
 			'	<div class="left">' +
@@ -31,52 +31,53 @@ namespace timelineFlash {
 		private static style = (function () {
 			Style.add({
 				".TimelineView": {
-					display: "flex"
-					, minHeight: "44px"
+					display          : "flex"
+					, minHeight      : "44px"
 					, backgroundColor: "#444444"
-					, ".left": {
-						display: "flex"
-						, flexDirection: "column"
-						, borderRight: "1px solid #2b2b2b"
+					, ".left"        : {
+						display               : "flex"
+						, flexDirection       : "column"
+						, borderRight         : "1px solid #2b2b2b"
 						, ".timelineLabelView": {
-							display: "flex"
-							, height: "22px"
-							, color: "#fff"
-							, ".name": {
+							display      : "flex"
+							, height     : "22px"
+							, color      : "#fff"
+							, paddingLeft: "0.5em"
+							, ".name"    : {
 								flexGrow: 1
 							}
 						}
-						, ".labelsView": {
-							minWidth: "300px"
+						, ".labelsView"       : {
+							minWidth  : "300px"
 							, flexGrow: 1
+
 						}
-						, ".ToolBarView": {}
 					}
-					, ".scrollView": {
-						flexGrow: 1
-						, overflowX: "scroll"
+					, ".scrollView"  : {
+						flexGrow      : 1
+						, overflowX   : "scroll"
 						, ".scaleView": {
-							position: "relative"
-							, minWidth: "100%"
-							, width: "500%"
+							position        : "relative"
+							, minWidth      : "100%"
+							, width         : "500%"
 							, ".seekBarView": {
-								position: "absolute"
-								, top: "22px"
-								, left: "0px"
-								, width: "1px"
-								, height: "calc(100% - 22px)"
+								position    : "absolute"
+								, top       : "22px"
+								, left      : "0px"
+								, width     : "1px"
+								, height    : "calc(100% - 22px)"
 								, borderLeft: "1px solid #B20200"
 
 								, "&:before": {
-									content: "''"
-									, display: "block"
-									, position: "absolute"
-									, top: "-22px"
-									, left: "-5px"
-									, width: "10px"
-									, height: "22px"
+									content          : "''"
+									, display        : "block"
+									, position       : "absolute"
+									, top            : "-22px"
+									, left           : "-5px"
+									, width          : "10px"
+									, height         : "22px"
 									, backgroundColor: "rgba(178,2,0,0.4)"
-									, border: "1px solid #B20200"
+									, border         : "1px solid #B20200"
 								}
 							}
 						}
@@ -87,7 +88,7 @@ namespace timelineFlash {
 			return;
 		})();
 
-		public timeline:gsap.Timeline;
+		public timeline:gsap.TimelineMax;
 		public labelsView:View;
 		public timelineLabelView:View;
 		public scrollView:View;
@@ -102,17 +103,17 @@ namespace timelineFlash {
 		public _onUpdate:any;
 		public _onComplete:any;
 
-		constructor(timeline:gsap.Timeline) {
+		constructor(timeline:gsap.TimelineMax) {
 			super($(TimelineView.TEMPLATE));
 			this.timeline = timeline;
 
-			this.labelsView = new View(this.jq.find(".labelsView"));
+			this.labelsView        = new View(this.jq.find(".labelsView"));
 			this.timelineLabelView = new View(this.jq.find(".timelineLabelView"));
-			this.scrollView = new View(this.jq.find(".scrollView"));
-			this.rulerView = new RulerView(this.jq.find(".RulerView"));
-			this.toolBarView = new ToolBarView(this.jq.find(".toolBarView"));
-			this.tweensView = new View(this.jq.find(".tweensView"));
-			this.seekBarView = new View(this.jq.find(".seekBarView"));
+			this.scrollView        = new View(this.jq.find(".scrollView"));
+			this.rulerView         = new RulerView(this.jq.find(".RulerView"));
+			this.toolBarView       = new ToolBarView(this.jq.find(".toolBarView"));
+			this.tweensView        = new View(this.jq.find(".tweensView"));
+			this.seekBarView       = new View(this.jq.find(".seekBarView"));
 
 			this.playBtn = new View(this.jq.find(".playBtn"));
 			this.stopBtn = new View(this.jq.find(".stopBtn"));
@@ -170,17 +171,17 @@ namespace timelineFlash {
 
 			this.seekBarView.jq
 				.on("touchstart mousedown", (e:any)=> {
-					mode = "down";
+					mode  = "down";
 					pageX = e.changedTouches ? e.changedTouches[0].pageX : e.pageX;
 
 					currentTime = this.timeline.time();
-					ratio = 100 / this.scrollView.jq.find(".scaleView").width();
+					ratio       = 100 / this.scrollView.jq.find(".scaleView").width();
 				});
 
 			$(window)
 				.on("touchmove mousemove", (e:any)=> {
 					if (mode == "none")return;
-					var _pageX = e.changedTouches ? e.changedTouches[0].pageX : e.pageX;
+					var _pageX   = e.changedTouches ? e.changedTouches[0].pageX : e.pageX;
 					var deffTime = (pageX - _pageX) * ratio;
 
 					currentTime -= deffTime;
@@ -205,7 +206,7 @@ namespace timelineFlash {
 		}
 
 		private setLabel() {
-			var option = this.timeline["timelineFlashOption"];
+			var option         = this.timeline["timelineFlashOption"];
 			var _target:string = "";
 			try {
 				_target = option.label;

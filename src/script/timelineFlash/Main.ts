@@ -1,0 +1,3 @@
+$(()=> {
+	new timelineFlash.Panel();
+});

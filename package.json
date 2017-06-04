@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ts": "tsc -w"
   },
   "repository": {
     "type": "git",
@@ -17,12 +18,11 @@
   },
   "homepage": "https://github.com/chitose87/TimelineFlash#readme",
   "dependencies": {
-    "@types/gapi": "0.0.31",
     "@types/gsap": "^1.19.1",
-    "@types/jquery": "^2.0.41",
-    "@types/pixi.js": "^4.4.2",
-    "@types/vue": "^2.0.0",
-    "vue": "^2.2.6",
-    "vue-cli": "^2.8.1"
+    "@types/jquery": "^2.0.41"
+  },
+  "devDependencies": {
+    "jquery": "^2.2.4",
+    "typescript": "^2.3.4"
   }
 }

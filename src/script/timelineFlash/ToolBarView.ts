@@ -11,6 +11,7 @@ namespace timelineFlash {
 			Style.add({
 				".ToolBarView": {
 					position: "relative"
+					, paddingLeft: "1.0em"
 					, ".leftView": {
 						".addTweenBtn": {}
 					}

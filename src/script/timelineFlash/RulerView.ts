@@ -15,7 +15,6 @@ namespace timelineFlash {
 						fontSize: "10px"
 						, display: "inline-block"
 						, textAlign: "center"
-						, color: "#fff"
 						, width: "5%"
 					}
 				}

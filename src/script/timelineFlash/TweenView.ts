@@ -4,11 +4,7 @@ namespace timelineFlash {
 		public static NAME:string = "TweenView";
 		private static TEMPLATE:string = '' +
 			'<div class="TweenView">' +
-			'	<div class="frameView">' +
-			'		<div class="leftNobView">' +
-			'		</div>' +
-			'		<div class="rightNobView">' +
-			'		</div>' +
+			'	<div class="FrameView">' +
 			'	</div>' +
 			'</div>';
 
@@ -52,58 +48,6 @@ namespace timelineFlash {
 					, width: "100%"
 					, backgroundColor: "#494949"
 					, borderBottom: Style.border_dark
-
-					, ".frameView": {
-						position: "relative"
-						, height: "100%"
-						, backgroundColor: "#62668A"
-						, borderLeft: Style.border_dark
-						, borderRight: Style.border_dark
-						, "&.selected": {
-							backgroundColor: Style.color_select
-						}
-
-						, ".leftNobView,.rightNobView": {
-							position: "absolute"
-							, width: "10px"
-							, height: "100%"
-							, display: "flex"
-							, alignItems: "center"
-
-							, "&:before": {
-								content: "''"
-								, display: "block"
-								, width: "5px"
-								, height: "5px"
-								, marginLeft: "2.5px"
-								, borderRadius: "50%"
-								, backgroundColor: Style.color_reverse
-							}
-						}
-						, ".leftNobView": {
-							left: 0
-						}
-						, ".rightNobView": {
-							right: 0
-						}
-					}
-					, "&[data-method='set']": {
-						".frameView .rightNobView": {
-							display: "none"
-						}
-					}
-					, "&[data-method='to']": {
-						".frameView .leftNobView:before": {
-							backgroundColor: "transparent"
-							, border: "1px solid " + Style.color_reverse.getCode()
-						}
-					}
-					, "&[data-method='from']": {
-						".frameView .rightNobView:before": {
-							backgroundColor: "transparent"
-							, border: "1px solid " + Style.color_reverse.getCode()
-						}
-					}
 				}
 				, ".TimelineView .left .LabelView": {
 					position: "relative"
@@ -111,6 +55,7 @@ namespace timelineFlash {
 					, color: "#fff"
 					, backgroundColor: "#494949"
 					, borderBottom: Style.border_dark
+					, paddingLeft: "1.0em"
 					, "&.selected": {
 						backgroundColor: Style.color_select
 					}
@@ -135,13 +80,10 @@ namespace timelineFlash {
 			});
 			return;
 		})();
-
 		//----------------------------------------
 
 		public tween:gsap.TweenMax;
-		public frameView:View;
-		public leftNobView:View;
-		public rightNobView:View;
+		public frameView:FrameView;
 		public labelView:View;
 
 		public methodType:string;
@@ -151,10 +93,7 @@ namespace timelineFlash {
 			this.tween = tween;
 
 			//
-			this.frameView = new View(this.jq.find(".frameView"));
-			this.leftNobView = new View(this.jq.find(".leftNobView"));
-			this.rightNobView = new View(this.jq.find(".rightNobView"));
-
+			this.frameView = new FrameView(this.jq.find(".FrameView"));
 			this.labelView = new View($(TweenView.LABEL_TEMPLATE));
 			//
 
@@ -198,12 +137,12 @@ namespace timelineFlash {
 				timeScale = this.tween.timeScale();
 
 				ratio = 100 / this.jq.width();
-				// ratio = startTime / parseInt(this.frameView.jq.css("marginLeft")) || 1;
+				// ratio = startTime / parseInt(this.FrameView.jq.css("marginLeft")) || 1;
 
 				onSelect();
 			};
 			var onSelect = ()=> {
-				$(".frameView.selected,.TimelineView .LabelView").removeClass("selected");
+				$(".FrameView.selected,.TimelineView .LabelView").removeClass("selected");
 				this.frameView.jq.addClass("selected");
 				this.labelView.jq.addClass("selected");
 			};
@@ -214,12 +153,12 @@ namespace timelineFlash {
 					mode = "move";
 					comm(e);
 				});
-			this.leftNobView.jq
+			this.frameView.leftNobView.jq
 				.on("touchstart mousedown", (e:any)=> {
 					mode = "start";
 					comm(e);
 				});
-			this.rightNobView.jq
+			this.frameView.rightNobView.jq
 				.on("touchstart mousedown", (e:any)=> {
 					mode = "duration";
 					comm(e);
@@ -311,5 +250,91 @@ namespace timelineFlash {
 			this.update();
 		}
 
+	}
+
+	// ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+	/**
+	 * frame view
+	 */
+	export class FrameView extends View {
+		private static TEMPLATE:string = '' +
+			'<div class="leftNobView">' +
+			'</div>' +
+			'<div class="rightNobView">' +
+			'</div>';
+		private static style = (function () {
+			Style.add({
+				".TweenView": {
+					".FrameView": {
+						position: "relative"
+						, height: "100%"
+						, backgroundColor: "#62668A"
+						, borderLeft: Style.border_dark
+						, borderRight: Style.border_dark
+						, "&.selected": {
+							backgroundColor: Style.color_select
+						}
+						, ".leftNobView,.rightNobView": {
+							position: "absolute"
+							, width: "10px"
+							, height: "100%"
+							, display: "flex"
+							, alignItems: "center"
+
+							, "&:before": {
+								content: "''"
+								, display: "block"
+								, width: "5px"
+								, height: "5px"
+								, marginLeft: "2.5px"
+								, borderRadius: "50%"
+								, backgroundColor: Style.color_reverse
+							}
+						}
+						, ".leftNobView": {
+							left: 0
+						}
+						, ".rightNobView": {
+							right: 0
+						}
+					}
+					, "&[data-method='set']": {
+						".FrameView": {
+							width: "11px !important"
+							, backgroundColor: "#636363"
+							, borderRight: 0
+						}
+						, ".FrameView .rightNobView": {
+							display: "none"
+						}
+					}
+					, "&[data-method='to']": {
+						".FrameView .leftNobView:before": {
+							backgroundColor: "transparent"
+							, border: "1px solid " + Style.color_reverse.getCode()
+						}
+					}
+					, "&[data-method='from']": {
+						".FrameView .rightNobView:before": {
+							backgroundColor: "transparent"
+							, border: "1px solid " + Style.color_reverse.getCode()
+						}
+					}
+				}
+			});
+			return;
+		})();
+
+		//
+		public leftNobView:View;
+		public rightNobView:View;
+
+		constructor(jq:JQuery) {
+			super(jq.append(FrameView.TEMPLATE));
+
+			this.leftNobView = new View(this.jq.find(".leftNobView"));
+			this.rightNobView = new View(this.jq.find(".rightNobView"));
+
+		}
 	}
 }

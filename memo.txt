@@ -1,0 +1,9 @@
+bower init
+bower install pixi.js
+
+npm init
+npm install --save @types/gsap
+npm install --save @types/jquery
+
+npm install typescript --save-dev
+npm install jquery@2.2.4 --save-dev

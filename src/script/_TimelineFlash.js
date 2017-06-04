@@ -13,7 +13,7 @@ var TimelineFlash = (function () {
 			",top=" + window.outerHeight * 2 / 3 +
 			"");
 		this.child.document.clear();
-		this.child.document.write('<html><head><title>TimelineFlash v0.1</title></head><body data-id="' + this.uid + '"><script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script><script src="./script/TimelineFlash.js"></script></body></html>');
+		this.child.document.write('<html><head><title>TimelineFlash v0.1</title></head><body data-id='+this.uid+'><script src="./script/TimelineFlash.js"></script></body></html>');
 		this.child.document.close();
 
 		this.timelines = [];
